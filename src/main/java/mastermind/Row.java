@@ -5,6 +5,10 @@ import java.util.List;
 import java.util.Objects;
 
 public class Row {
+    public List<Peg> getPegs() {
+        return pegs;
+    }
+
     private List<Peg> pegs = new ArrayList<>();
 
     public void addPeg(Peg peg) {
