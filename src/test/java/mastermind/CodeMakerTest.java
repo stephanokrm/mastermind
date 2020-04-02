@@ -74,4 +74,27 @@ public class CodeMakerTest {
         // then
         assertEquals(new Feedback("WHITE"), feedback);
     }
+
+    @Test
+    public void oneMatchingColorOnRightPlaceGetsOneRedPin(){
+        //given
+        Row code = new Row();
+        code.addPeg(new Peg("BLUE"));
+        code.addPeg(new Peg("RED"));
+        code.addPeg(new Peg("YELLOW"));
+        code.addPeg(new Peg("GREEN"));
+
+        Row oneMatchingColorWithRightPlaceCode = new Row();
+        oneMatchingColorWithRightPlaceCode.addPeg(new Peg("BLUE"));
+        oneMatchingColorWithRightPlaceCode.addPeg(new Peg("PURPLE"));
+        oneMatchingColorWithRightPlaceCode.addPeg(new Peg("ORANGE"));
+        oneMatchingColorWithRightPlaceCode.addPeg(new Peg("MAGENTA"));
+
+        // when
+        CodeMaker codeMaker = new CodeMaker(code);
+        Feedback feedback = codeMaker.attemptToBreak(oneMatchingColorWithRightPlaceCode);
+
+        // then
+        assertEquals(new Feedback("RED"), feedback);
+    }
 }
