@@ -26,4 +26,8 @@ public class Feedback {
     public void addPin(String color) {
         pins.add(color);
     }
+
+    public List<String> getPins() {
+        return pins;
+    }
 }

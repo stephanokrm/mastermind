@@ -1,5 +1,6 @@
 package mastermind;
 
+import org.assertj.core.api.Assertions;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -26,7 +27,7 @@ public class CodeMakerTest {
         Feedback feedback = codeMaker.attemptToBreak(rightCode);
 
         // then
-        assertEquals(new Feedback("RED", "RED", "RED", "RED"), feedback);
+        Assertions.assertThat(feedback.getPins()).containsExactly("RED", "RED", "RED", "RED");
     }
 
     @Test
@@ -49,7 +50,7 @@ public class CodeMakerTest {
         Feedback feedback = codeMaker.attemptToBreak(wrongCode);
 
         // then
-        assertEquals(new Feedback(), feedback);
+        Assertions.assertThat(feedback.getPins()).isEmpty();
     }
 
     @Test
@@ -72,7 +73,7 @@ public class CodeMakerTest {
         Feedback feedback = codeMaker.attemptToBreak(oneMatchingColorWithWrongPlaceCode);
 
         // then
-        assertEquals(new Feedback("WHITE"), feedback);
+        Assertions.assertThat(feedback.getPins()).containsExactly("WHITE");
     }
 
     @Test
@@ -95,7 +96,7 @@ public class CodeMakerTest {
         Feedback feedback = codeMaker.attemptToBreak(oneMatchingColorWithRightPlaceCode);
 
         // then
-        assertEquals(new Feedback("RED"), feedback);
+        Assertions.assertThat(feedback.getPins()).containsExactly("RED");
     }
 
     @Test
@@ -118,6 +119,6 @@ public class CodeMakerTest {
         Feedback feedback = codeMaker.attemptToBreak(twoMatchingColorsOneRightPlaceOneWrongPlaceCode);
 
         // then
-        assertEquals(new Feedback("RED", "WHITE"), feedback);
+        Assertions.assertThat(feedback.getPins()).containsExactlyInAnyOrder("RED", "WHITE");
     }
 }
