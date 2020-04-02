@@ -121,4 +121,73 @@ public class CodeMakerTest {
         // then
         Assertions.assertThat(feedback.getPins()).containsExactlyInAnyOrder("RED", "WHITE");
     }
+
+    @Test
+    public void getTwoWhitsAndOneRedAsFeedback(){
+        //given
+        Row code = new Row();
+        code.addPeg(new Peg("BLUE"));
+        code.addPeg(new Peg("MAGENTA"));
+        code.addPeg(new Peg("YELLOW"));
+        code.addPeg(new Peg("GREEN"));
+
+        Row twoRightColorsAndOneRightPositionCode = new Row();
+        twoRightColorsAndOneRightPositionCode.addPeg(new Peg("BLUE"));
+        twoRightColorsAndOneRightPositionCode.addPeg(new Peg("YELLOW"));
+        twoRightColorsAndOneRightPositionCode.addPeg(new Peg("ORANGE"));
+        twoRightColorsAndOneRightPositionCode.addPeg(new Peg("MAGENTA"));
+
+        // when
+        CodeMaker codeMaker = new CodeMaker(code);
+        Feedback feedback = codeMaker.attemptToBreak(twoRightColorsAndOneRightPositionCode);
+
+        // then
+        Assertions.assertThat(feedback.getPins()).containsExactlyInAnyOrder("RED", "WHITE", "WHITE");
+    }
+
+    @Test
+    public void getTwoRedsAndOneWhiteAsFeedback(){
+        //given
+        Row code = new Row();
+        code.addPeg(new Peg("BLUE"));
+        code.addPeg(new Peg("MAGENTA"));
+        code.addPeg(new Peg("YELLOW"));
+        code.addPeg(new Peg("GREEN"));
+
+        Row twoRightPositionsAndOneRightColorCode = new Row();
+        twoRightPositionsAndOneRightColorCode.addPeg(new Peg("BLUE"));
+        twoRightPositionsAndOneRightColorCode.addPeg(new Peg("MAGENTA"));
+        twoRightPositionsAndOneRightColorCode.addPeg(new Peg("ORANGE"));
+        twoRightPositionsAndOneRightColorCode.addPeg(new Peg("YELLOW"));
+
+        // when
+        CodeMaker codeMaker = new CodeMaker(code);
+        Feedback feedback = codeMaker.attemptToBreak(twoRightPositionsAndOneRightColorCode);
+
+        // then
+        Assertions.assertThat(feedback.getPins()).containsExactlyInAnyOrder("RED", "RED", "WHITE");
+    }
+
+    @Test
+    public void getOneRedAndOneWhiteForTheSameColorAsFeedback(){
+        //given
+        Row code = new Row();
+        code.addPeg(new Peg("BLUE"));
+        code.addPeg(new Peg("MAGENTA"));
+        code.addPeg(new Peg("MAGENTA"));
+        code.addPeg(new Peg("GREEN"));
+
+        Row oneRightPositionAndOneRightColorCode = new Row();
+        oneRightPositionAndOneRightColorCode.addPeg(new Peg("RED"));
+        oneRightPositionAndOneRightColorCode.addPeg(new Peg("MAGENTA"));
+        oneRightPositionAndOneRightColorCode.addPeg(new Peg("ORANGE"));
+        oneRightPositionAndOneRightColorCode.addPeg(new Peg("MAGENTA"));
+
+        // when
+        CodeMaker codeMaker = new CodeMaker(code);
+        Feedback feedback = codeMaker.attemptToBreak(oneRightPositionAndOneRightColorCode);
+
+        // then
+        Assertions.assertThat(feedback.getPins()).containsExactlyInAnyOrder("RED", "WHITE");
+    }
 }
