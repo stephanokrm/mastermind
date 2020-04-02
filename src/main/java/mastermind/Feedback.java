@@ -1,13 +1,13 @@
 package mastermind;
 
-import java.util.Arrays;
+import java.util.*;
 
 public class Feedback {
 
-    private final String[] pins;
+    private final List<String> pins = new ArrayList<>();
 
     public Feedback(String... pins) {
-        this.pins = pins;
+        Collections.addAll(this.pins, pins);
     }
 
     @Override
@@ -15,11 +15,15 @@ public class Feedback {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Feedback feedback = (Feedback) o;
-        return Arrays.equals(pins, feedback.pins);
+        return Objects.equals(pins, feedback.pins);
     }
 
     @Override
     public int hashCode() {
-        return Arrays.hashCode(pins);
+        return Objects.hash(pins);
+    }
+
+    public void addPin(String color) {
+        pins.add(color);
     }
 }

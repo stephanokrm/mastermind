@@ -97,4 +97,27 @@ public class CodeMakerTest {
         // then
         assertEquals(new Feedback("RED"), feedback);
     }
+
+    @Test
+    public void twoMatchingColorsOneBeingRightPositionedGetsOneRedPinAndOneWhitePin(){
+        //given
+        Row code = new Row();
+        code.addPeg(new Peg("BLUE"));
+        code.addPeg(new Peg("MAGENTA"));
+        code.addPeg(new Peg("YELLOW"));
+        code.addPeg(new Peg("GREEN"));
+
+        Row twoMatchingColorsOneRightPlaceOneWrongPlaceCode = new Row();
+        twoMatchingColorsOneRightPlaceOneWrongPlaceCode.addPeg(new Peg("BLUE"));
+        twoMatchingColorsOneRightPlaceOneWrongPlaceCode.addPeg(new Peg("PURPLE"));
+        twoMatchingColorsOneRightPlaceOneWrongPlaceCode.addPeg(new Peg("ORANGE"));
+        twoMatchingColorsOneRightPlaceOneWrongPlaceCode.addPeg(new Peg("MAGENTA"));
+
+        // when
+        CodeMaker codeMaker = new CodeMaker(code);
+        Feedback feedback = codeMaker.attemptToBreak(twoMatchingColorsOneRightPlaceOneWrongPlaceCode);
+
+        // then
+        assertEquals(new Feedback("RED", "WHITE"), feedback);
+    }
 }
